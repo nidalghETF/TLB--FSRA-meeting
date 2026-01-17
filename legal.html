@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Team Briefing - FSRA Pre-Application</title>
+    <style>
+        :root {
+            --primary: #002147; /* Navy Blue */
+            --secondary: #C5A059; /* Gold */
+            --accent: #F4F4F4;
+            --text: #333333;
+            --white: #FFFFFF;
+            --danger: #8B0000;
+            --success: #2E7D32;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --sidebar-width: 250px;
+        }
+
+        /* --- GLOBAL RESET & TYPOGRAPHY --- */
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3, h4 { color: var(--primary); margin-top: 0; }
+        h1 { font-size: 22pt; border-bottom: 3px solid var(--secondary); padding-bottom: 10px; text-transform: uppercase; }
+        h2 { font-size: 16pt; margin-top: 30px; border-left: 5px solid var(--secondary); padding-left: 10px; background: #fcfcfc; padding-top: 5px; padding-bottom: 5px; text-transform: uppercase; }
+        h3 { font-size: 13pt; color: #002147; margin-top: 20px; font-weight: 700; text-transform: uppercase; }
+        p, li { font-size: 11pt; }
+        
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 95%; /* 95% WIDTH */
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            min-height: 100vh;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s;
+        }
+
+        /* --- SIDEBAR NAV --- */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .sidebar h3 { color: var(--secondary); border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; font-size: 12pt; }
+        .nav-link {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 10pt;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: var(--secondary); padding-left: 5px; }
+        .sidebar-footer { margin-top: 20px; font-size: 9pt; color: #aaa; }
+
+        /* --- MOBILE MENU BUTTON --- */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1100;
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* --- COMPONENT: TABLES --- */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        th { background-color: var(--primary); color: var(--white); padding: 12px; text-align: left; font-size: 10pt; }
+        td { border: 1px solid #ddd; padding: 12px; font-size: 10pt; vertical-align: top; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* --- COMPONENT: DIAGRAMS (SVG) --- */
+        .diagram-container {
+            width: 100%;
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #eee;
+            background: #fff;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        svg { max-width: 100%; height: auto; }
+
+        /* --- COMPONENT: CHECKLISTS --- */
+        .checklist-item {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .checklist-item:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* --- COMPONENT: HEADER BLOCK --- */
+        .memo-header {
+            background-color: #f0f4f8;
+            padding: 20px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 30px;
+        }
+        .memo-row { margin-bottom: 5px; }
+        .memo-label { font-weight: bold; color: var(--primary); width: 100px; display: inline-block; }
+
+        /* --- PAGE BREAKS --- */
+        .page-break { page-break-before: always; margin-top: 40px; border-top: 1px dashed #ccc; padding-top: 40px; }
+        
+        /* --- RESPONSIVE & PRINT --- */
+        @media screen and (max-width: 1024px) {
+            .container { margin-left: 0; width: 100%; max-width: 100%; padding: 20px; }
+            .sidebar { transform: translateX(-100%); width: 280px; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
+            .sidebar.active { transform: translateX(0); }
+            .menu-toggle { display: block; }
+        }
+
+        @media print {
+            body { background: #fff; }
+            .container { width: 100%; max-width: 100%; padding: 0; margin: 0; box-shadow: none; margin-left: 0; }
+            .sidebar, .menu-toggle { display: none; }
+            .page-break { page-break-before: always; border: none; margin: 0; padding-top: 20px; }
+            tr { page-break-inside: avoid; }
+            .table-wrapper { overflow: visible; }
+            a { text-decoration: none; color: black; }
+        }
+    </style>
+</head>
+<body>
+<a href="index.html" style="position:fixed; top:20px; right:20px; z-index:9999; background:#C5A059; color:white; padding:10px 20px; text-decoration:none; border-radius:4px; font-weight:bold; font-family:sans-serif;">← Return to Hub</a>
+<button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+
+<nav class="sidebar no-print" id="sidebar">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <div style="width: 50px; height: 50px; background: var(--secondary); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14pt;">TLB</div>
+        <div style="font-weight: bold;">Legal Briefing</div>
+        <div style="font-size: 9pt; opacity: 0.7;">FSRA Pre-App</div>
+    </div>
+
+    <a href="#req-del" class="nav-link" onclick="closeMenu()">REQUESTED DELIVERABLES</a>
+    <a href="#del-1" class="nav-link" onclick="closeMenu()">DELIVERABLE 1: MEMO</a>
+    <a href="#del-2" class="nav-link" onclick="closeMenu()">DELIVERABLE 2: MATRIX</a>
+    <a href="#del-3" class="nav-link" onclick="closeMenu()">DELIVERABLE 3: DIAGRAM</a>
+    <a href="#ref-mat" class="nav-link" onclick="closeMenu()">REFERENCE MATERIALS</a>
+    <a href="#qa-check" class="nav-link" onclick="closeMenu()">QA CHECKLIST</a>
+
+    <div class="sidebar-footer">
+        Status: DRAFT<br>
+        Version 2.0
+    </div>
+</nav>
+
+<div class="container" id="mainContent">
+
+    <section>
+        <h1>LEGAL TEAM BRIEFING: FSRA PRE-APPLICATION MEETING</h1>
+        
+        <div class="memo-header">
+            <div class="memo-row"><span class="memo-label">TO:</span> Legal Team</div>
+            <div class="memo-row"><span class="memo-label">FROM:</span> Token Lebnani V2 Ltd - FSRA Application Team</div>
+            <div class="memo-row"><span class="memo-label">DATE:</span> 13 January 2026</div>
+            <div class="memo-row"><span class="memo-label">SUBJECT:</span> FSRA Pre-Application Meeting - Required Legal Documentation</div>
+        </div>
+    </section>
+
+    <section id="req-del">
+        <h2>REQUESTED DELIVERABLES</h2>
+        <p><strong>For our FSRA pre-application meeting, please produce exactly 3 documents:</strong></p>
+        <ol>
+            <li><strong>Jurisdictional Enforceability Memorandum</strong> (3 pages maximum)</li>
+            <li><strong>Key Positions Status Matrix</strong> (1 page table)</li>
+            <li><strong>Legal Structure Diagram</strong> (Professional flowchart)</li>
+        </ol>
+        <p><strong>All other content in this briefing is reference material to help you produce these documents.</strong></p>
+    </section>
+
+    <div class="page-break"></div>
+
+    <section id="del-1">
+        <h2>DELIVERABLE 1: JURISDICTIONAL ENFORCEABILITY MEMORANDUM</h2>
+        
+        <h3>TOKEN LEBNANI V2 LTD - PRE-APPLICATION LEGAL FRAMEWORK</h3>
+        <p><strong>DOCUMENT STATUS:</strong> Draft - For FSRA Pre-Application Meeting Only<br>
+        <strong>CONFIDENTIALITY:</strong> Commercial in Confidence</p>
+        
+        <hr>
+
+        <h3>1. EXECUTIVE SUMMARY</h3>
+        <p>Token Lebnani V2 Ltd ("TLB") proposes a three-tier legal structure to facilitate regulated investment in Lebanese real estate through an ADGM-licensed Private Financing Platform. This memo outlines the legal framework for cross-border enforcement, asset protection, and regulatory compliance between ADGM and Lebanese jurisdictions.</p>
+        <p><strong>Primary Legal Mechanisms:</strong></p>
+        <ol>
+            <li>ADGM SPV ownership of Lebanese SARL for asset segregation</li>
+            <li>Treaty-based enforcement via the 1958 New York Convention</li>
+            <li>Registered security interests under Lebanese law</li>
+        </ol>
+
+        <h3>2. THREE-TIER STRUCTURE</h3>
+        <p><strong>TIER 1: TLB LTD (ADGM)</strong></p>
+        <ul>
+            <li><strong>Legal Form:</strong> ADGM Private Company Limited by Shares</li>
+            <li><strong>Regulatory Status:</strong> Applicant for Category 4 Financial Services Permission</li>
+            <li><strong>FSRA Reference:</strong> COBS 18.5.1(b) - PFP Activity Limitation</li>
+            <li><strong>Function:</strong> Arranges deals in investments; does not hold custody or provide advice</li>
+        </ul>
+
+        <p><strong>TIER 2: PROJECT SPV (ADGM)</strong></p>
+        <ul>
+            <li><strong>Legal Form:</strong> ADGM Special Purpose Vehicle</li>
+            <li><strong>Purpose:</strong> Structured for bankruptcy remoteness (subject to Non-Consolidation Legal Opinion at operational stage)</li>
+            <li><strong>Ownership:</strong> Investor-owned via tokenized securities</li>
+            <li><strong>Control Mechanism:</strong> Management Services Agreement with TLB Ltd</li>
+            <li><strong>FSRA Reference:</strong> GEN 6 - Financial Soundness</li>
+        </ul>
+
+        <p><strong>TIER 3: LEBANESE SARL</strong></p>
+        <ul>
+            <li><strong>Legal Form:</strong> Lebanese Société à Responsabilité Limitée</li>
+            <li><strong>Purpose:</strong> Holds legal title to Lebanese real estate</li>
+            <li><strong>Ownership:</strong> 100% owned by Project SPV</li>
+            <li><strong>Registration:</strong> Lebanese Commercial Register (Ministry of Economy)</li>
+            <li><strong>Compliance:</strong> Decree No. 11614/1969 (foreign ownership restrictions)</li>
+        </ul>
+
+        <h3>3. ENFORCEMENT MECHANISM</h3>
+        <p><strong>LEGAL BASIS: NEW YORK CONVENTION</strong></p>
+        <ul>
+            <li>Lebanon: Law No. 440 of 1998 (Official Gazette No. 50, 1998)</li>
+            <li>UAE: Federal Law No. 6 of 2018 (Official Gazette No. 630, 2018)</li>
+            <li>Both jurisdictions maintain reciprocity reservations</li>
+        </ul>
+
+        <p><strong>ARBITRATION FRAMEWORK:</strong></p>
+        <ul>
+            <li><strong>Seat:</strong> ADGM Arbitration Centre</li>
+            <li><strong>Rules:</strong> UNCITRAL Arbitration Rules 2013</li>
+            <li><strong>Language:</strong> English</li>
+            <li><strong>Governing Law:</strong> ADGM Law (where permissible), supplemented by Lebanese law for property matters</li>
+        </ul>
+
+        <p><strong>ENFORCEMENT PATHWAY:</strong></p>
+        <ol>
+            <li>ADGM-seated arbitration award issuance</li>
+            <li>Lebanese Court of Appeals recognition proceedings (exequatur)</li>
+            <li>Potential challenges under:
+                <ul>
+                    <li>Article V(2)(b) public policy exceptions</li>
+                    <li>Procedural irregularities under Lebanese Code of Civil Procedure (Articles 793-814)</li>
+                </ul>
+            </li>
+            <li>Final execution via Lebanese bailiff (huissier de justice)</li>
+        </ol>
+
+        <p><strong>CONTINGENCY MEASURES:</strong></p>
+        <ul>
+            <li>Retention of Lebanese enforcement counsel</li>
+            <li>Parallel proceedings strategy for timely enforcement</li>
+        </ul>
+
+        <h3>4. LEBANON-SPECIFIC RISK MITIGATION</h3>
+        <p><strong>ASSET PROTECTION:</strong></p>
+        <ol>
+            <li><strong>Security Registration:</strong>
+                <ul>
+                    <li>Registered share pledge at Lebanese Commercial Register</li>
+                    <li>Dual-signatory requirements for SARL bank accounts</li>
+                    <li>Property insurance with international carriers</li>
+                </ul>
+            </li>
+            <li><strong>Local Counsel Retention:</strong>
+                <ul>
+                    <li>Pre-vetted Lebanese law firms with real estate and commercial litigation expertise</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p><strong>CASH-FLOW REPATRIATION STRATEGY:</strong></p>
+        <ul>
+            <li><strong>Primary Structure:</strong> Direct USD/AED payments to ADGM SPV accounts</li>
+            <li><strong>Commercial Qualification:</strong> Subject to:
+                <ul>
+                    <li>Banque du Liban Circular 150 compliance</li>
+                    <li>Lebanese Income Tax Law (Article 56) withholding requirements</li>
+                    <li>Applicable BDL circulars on currency conversion</li>
+                </ul>
+            </li>
+            <li><strong>Fallback Structure:</strong> Lebanese banking channel with outward remittance approvals</li>
+        </ul>
+
+        <p><strong>ASSET SELECTION CRITERIA:</strong></p>
+        <ol>
+            <li><strong>Properties compliant with Decree No. 11614/1969:</strong>
+                <ul>
+                    <li>Maximum 3,000 square meters for foreign ownership</li>
+                    <li>Clear title verification via Conservation Foncière</li>
+                    <li>No existing encumbrances or third-party rights</li>
+                </ul>
+            </li>
+            <li><strong>Due Diligence Requirements:</strong>
+                <ul>
+                    <li>Independent RICS valuation (COBS 18.4 compliance)</li>
+                    <li>Lebanese notary public title verification</li>
+                    <li>Local zoning and planning compliance checks</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>5. REGULATORY ALIGNMENT</h3>
+        <p><strong>ADGM REQUIREMENTS ADDRESSED:</strong></p>
+        <ol>
+            <li><strong>GEN 2.3:</strong> Fit and Proper Test - Controlled functions matrix (see Document 2)</li>
+            <li><strong>COBS 18.4:</strong> Due Diligence - Triple-lock asset vetting process</li>
+            <li><strong>MKT 4.3:</strong> Marketing and disclosure - Risk disclaimers for Lebanese market</li>
+            <li><strong>FRT Framework 2026:</strong> Technology router model only (no custody or issuance)</li>
+        </ol>
+
+        <p><strong>LEBANESE COMPLIANCE ACKNOWLEDGED:</strong></p>
+        <ol>
+            <li><strong>Commercial Register:</strong> SARL formation requirements</li>
+            <li><strong>Tax Registration:</strong> Ministry of Finance requirements</li>
+            <li><strong>Real Estate Registration:</strong> Conservation Foncière procedures</li>
+        </ol>
+    </section>
+
+    <div class="page-break"></div>
+
+    <section id="del-2">
+        <h2>DELIVERABLE 2: KEY POSITIONS STATUS MATRIX</h2>
+        
+        <h3>CONTROLLED FUNCTIONS SPECIFICATIONS</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">Position</th>
+                        <th width="15%">Status</th>
+                        <th width="35%">Mandatory Competency Requirements</th>
+                        <th width="15%">Regulatory Ref.</th>
+                        <th width="15%">Evidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Senior Executive Officer (SEO)</strong></td>
+                        <td>To be recruited (UAE resident mandatory)</td>
+                        <td>
+                            • <strong>Experience:</strong> 10+ years senior leadership in FSRA/DIFC-regulated finance.<br>
+                            • <strong>Regulatory Liaison:</strong> Direct FSRA/DFSA engagement; successful ADGM license participation.<br>
+                            • <strong>Risk Management:</strong> ICAAP mastery; defending ICAAP frameworks.<br>
+                            • <strong>Levantine Fluency:</strong> Understanding of Lebanese geopolitical risks.<br>
+                            • <strong>Accountability:</strong> Enforcing "no advice" boundaries.
+                        </td>
+                        <td>GEN 5.3.1<br>GEN 5.4.1<br>PIB 3.3</td>
+                        <td>Master Dossier - Del 3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Money Laundering Reporting Officer (MLRO)</strong></td>
+                        <td>Outsourced to Waystone Governance Services (ADGM)</td>
+                        <td>
+                            • <strong>Authorization:</strong> FSRA-authorized for MLRO services.<br>
+                            • <strong>Digital Asset Expertise:</strong> Blockchain analytics, wallet clustering, coin-taint analysis.<br>
+                            • <strong>Independence:</strong> Direct Board reporting line.<br>
+                            • <strong>MENA Expertise:</strong> Source of wealth analysis for Lebanese connections.
+                        </td>
+                        <td>COBS 13<br>AMLRP 1<br>GEN 5.3.1</td>
+                        <td>Draft Waystone Engagement Letter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Finance Officer (FO)</strong></td>
+                        <td>Part-time/ Outsourced (UAE resident)</td>
+                        <td>
+                            • <strong>Qualification:</strong> ACA/ACCA/CPA (Good standing).<br>
+                            • <strong>EPRS Mastery:</strong> 5+ years exp. in ADGM prudential reporting (PIB-CAP, PIB-LE).<br>
+                            • <strong>Client Money:</strong> Daily reconciliation procedures (PIB-CASS).
+                        </td>
+                        <td>PIB 2, PIB 4<br>GEN 5.3.1<br>COBS 11</td>
+                        <td>Master Dossier - Del 3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h3>RECRUITMENT PROTOCOL (ALL CONTROLLED FUNCTIONS)</h3>
+        <ol>
+            <li><strong>Pre-Screening:</strong> Sanctions list screening (UN, OFAC, EU) and World-Check enhanced due diligence prior to first interview.</li>
+            <li><strong>Regulatory Mock Interview:</strong> Finalist candidates subjected to mock regulator interview by Legal Counsel/Waystone; tests ADGM Rulebook knowledge.</li>
+            <li><strong>Informal FSRA Pre-Clearance:</strong> Candidate profile summary (CV, regulatory history) submitted to FSRA Authorisation Division for preliminary review.</li>
+            <li><strong>Final Appointment:</strong> Conditional on successful FSRA Controlled Function approval.</li>
+        </ol>
+    </section>
+
+    <div class="page-break"></div>
+
+    <section id="del-3">
+        <h2>DELIVERABLE 3: LEGAL STRUCTURE DIAGRAM</h2>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 800 600">
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                    </marker>
+                </defs>
+
+                <rect x="50" y="20" width="240" height="70" rx="5" fill="#002147" />
+                <text x="170" y="50" fill="white" font-family="Arial" font-weight="bold" text-anchor="middle">[TIER 1: TLB LTD (ADGM)]</text>
+                <text x="170" y="70" fill="#ccc" font-family="Arial" font-size="10" text-anchor="middle">Category 4 PFP Applicant</text>
+
+                <line x1="170" y1="90" x2="170" y2="150" stroke="#333" stroke-width="2" />
+                <line x1="170" y1="150" x2="190" y2="150" stroke="#333" stroke-width="2" />
+                <text x="195" y="135" fill="#333" font-family="Arial" font-size="11">Management Services Agreement</text>
+                <text x="210" y="150" fill="#666" font-family="Arial" font-size="10">└─ Control Mechanism</text>
+
+                <rect x="50" y="180" width="240" height="70" rx="5" fill="#f4f4f4" stroke="#002147" stroke-width="2"/>
+                <text x="170" y="210" fill="#002147" font-family="Arial" font-weight="bold" text-anchor="middle">[TIER 2: PROJECT SPV (ADGM)]</text>
+                <text x="170" y="230" fill="#333" font-family="Arial" font-size="10" text-anchor="middle">Bankruptcy-Remote Structure</text>
+
+                <text x="300" y="190" fill="#333" font-family="Arial" font-size="11">├── Subject to Non-Consolidation Opinion</text>
+                <text x="300" y="210" fill="#333" font-family="Arial" font-size="11">├── 100% Share Ownership of Lebanese SARL</text>
+                <text x="300" y="230" fill="#333" font-family="Arial" font-size="11">├── ADGM Arbitration Clause (All Agreements)</text>
+                <text x="300" y="250" fill="#333" font-family="Arial" font-size="11">└── Segregated USD/AED Bank Account</text>
+
+                <line x1="170" y1="250" x2="170" y2="380" stroke="#002147" stroke-width="2" marker-end="url(#arrow)" />
+
+                <rect x="50" y="380" width="240" height="70" rx="5" fill="#fff" stroke="#8B0000" stroke-width="2"/>
+                <text x="170" y="410" fill="#8B0000" font-family="Arial" font-weight="bold" text-anchor="middle">[TIER 3: LEBANESE SARL]</text>
+                <text x="170" y="430" fill="#333" font-family="Arial" font-size="10" text-anchor="middle">Legal Title Holder</text>
+
+                <text x="300" y="390" fill="#333" font-family="Arial" font-size="11">├── Properties < 3,000 sqm</text>
+                <text x="300" y="410" fill="#333" font-family="Arial" font-size="11">├── Registered Share Pledge (Security)</text>
+                <text x="300" y="430" fill="#333" font-family="Arial" font-size="11">├── Local Bank Account (Fallback Position)</text>
+                <text x="300" y="450" fill="#333" font-family="Arial" font-size="11">└── Direct Lease Payments Structure</text>
+
+                <rect x="50" y="500" width="700" height="50" rx="5" fill="#eee" />
+                <text x="70" y="520" fill="#002147" font-family="Arial" font-size="10" font-weight="bold">ENFORCEMENT PATHWAY:</text>
+                <text x="70" y="540" fill="#333" font-family="Arial" font-size="10">ADGM Arbitration Award → Lebanese Court of Appeals (Exequatur) → Asset Execution</text>
+            </svg>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <section id="ref-mat">
+        <h2>REFERENCE MATERIALS</h2>
+        
+        <h3>1. PRIMARY LEGAL SOURCES</h3>
+        
+        <p><strong>International Treaties:</strong></p>
+        <ul>
+            <li>1958 New York Convention on Recognition and Enforcement of Foreign Arbitral Awards</li>
+            <li>Lebanon: Law No. 440/1998 (Official Gazette No. 50)</li>
+            <li>UAE: Federal Law No. 6/2018 (Official Gazette No. 630)</li>
+        </ul>
+
+        <p><strong>ADGM Regulations:</strong></p>
+        <ul>
+            <li>FSRA Rulebook (Version 6.0, 2025)</li>
+            <li>ADGM Companies Regulations 2020</li>
+            <li>ADGM Arbitration Regulations 2015</li>
+        </ul>
+
+        <p><strong>Lebanese Legislation:</strong></p>
+        <ul>
+            <li>Decree No. 11614/1969 (Real Property Law)</li>
+            <li>Law No. 46/1983 (Commercial Companies Law)</li>
+            <li>Code of Civil Procedure (Articles 793-814)</li>
+            <li>Income Tax Law (Article 56)</li>
+        </ul>
+
+        <p><strong>Banque du Liban Regulations:</strong></p>
+        <ul>
+            <li>Basic Circular 150 (Cross-border payments)</li>
+            <li>Relevant currency control circulars (current to 2025)</li>
+        </ul>
+    </section>
+
+    <section id="qa-check">
+        <h2>QUALITY ASSURANCE CHECKLIST</h2>
+        <div class="checklist-item">All legal citations verified against official publications</div>
+        <div class="checklist-item">No marketing language present in documents</div>
+        <div class="checklist-item">Commercial strategies qualified by local regulatory compliance requirements</div>
+        <div class="checklist-item">Cross-references to FSRA Rulebook include specific subsection numbers</div>
+        <div class="checklist-item">Lebanese legal requirements stated with current applicability</div>
+        <div class="checklist-item">Enforcement mechanisms described with practical caveats</div>
+        <div class="checklist-item">Risk factors presented objectively without minimization</div>
+        <div class="checklist-item">Implementation steps are practical and sequential</div>
+        <div class="checklist-item">All assumptions clearly labeled as requiring verification</div>
+        <div class="checklist-item">Contingency plans documented for identified risk scenarios</div>
+    </section>
+
+    <hr>
+
+    <section>
+        <p><strong>Note to Legal Team:</strong> This briefing provides the factual and structural framework required for the FSRA pre-application meeting. Please expand each section with precise legal terminology, citations, and practical implementation details. The goal is to demonstrate thorough understanding of the legal framework, not final documentation.</p>
+
+        <p><strong>Final Deliverables Required:</strong></p>
+        <ol>
+            <li>Jurisdictional Enforceability Memorandum (3 pages max)</li>
+            <li>Key Positions Status Matrix (1 page table)</li>
+            <li>Legal Structure Diagram (Professional flowchart)</li>
+        </ol>
+
+        <p><strong>All content above these three deliverables is reference material to support their creation.</strong></p>
+    </section>
+
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+    function closeMenu() {
+        document.getElementById('sidebar').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSRA Master Pre-Application Dossier (Full)</title>
+    <style>
+        :root {
+            --primary: #002147; /* Navy Blue */
+            --secondary: #C5A059; /* Gold */
+            --accent: #F4F4F4;
+            --text: #333333;
+            --white: #FFFFFF;
+            --sidebar-width: 280px;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f5f7fa;
+        }
+        h1, h2, h3, h4 { color: var(--primary); margin-top: 0; }
+        h1 { font-size: 24pt; border-bottom: 3px solid var(--secondary); padding-bottom: 15px; margin-bottom: 30px; }
+        h2 { 
+            font-size: 18pt; 
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--secondary); 
+            padding-left: 15px; 
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background: linear-gradient(to right, #ffffff, #f9f9f9);
+        }
+        h3 { font-size: 14pt; color: #002147; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        h4 { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin-top: 20px; color: #555; }
+        p, li { font-size: 11pt; margin-bottom: 12px; }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            margin-left: var(--sidebar-width);
+            padding: 40px 60px;
+        }
+
+        /* --- SIDEBAR NAV --- */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+        }
+        
+        .brand-block {
+            padding: 30px 20px;
+            background: #00152e;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+        .brand-title { font-weight: 800; font-size: 16pt; letter-spacing: 0.5px; }
+        .brand-subtitle { font-size: 9pt; color: var(--secondary); text-transform: uppercase; margin-top: 8px; letter-spacing: 1px; }
+
+        .nav-group { margin-bottom: 20px; }
+        .nav-header { 
+            font-size: 8.5pt; 
+            text-transform: uppercase; 
+            color: rgba(255,255,255,0.4); 
+            margin: 0 0 5px 20px; 
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .nav-link {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 10px 25px;
+            font-size: 10.5pt;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+        .nav-link.active { background: rgba(197, 160, 89, 0.15); color: var(--secondary); border-left-color: var(--secondary); font-weight: 600; }
+
+        /* --- SECTIONS ("Tabs") --- */
+        .dossier-section {
+            background: var(--white);
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        /* --- COMPONENT: EXECUTIVE TALKING POINTS --- */
+        .exec-point {
+            background-color: #fffbf0;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin-bottom: 30px;
+            font-style: italic;
+            color: #555;
+            font-size: 11pt;
+            position: relative;
+        }
+        .exec-point::before {
+            content: "“";
+            font-size: 40px;
+            color: var(--secondary);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            line-height: 10px;
+        }
+
+        /* --- COMPONENT: TABLES --- */
+        .table-wrapper { width: 100%; overflow-x: auto; margin: 25px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 10.5pt; border: 1px solid #e0e0e0; }
+        th { background-color: #f1f3f4; color: var(--primary); padding: 12px 15px; text-align: left; border-bottom: 2px solid #d0d0d0; font-weight: 700; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; vertical-align: top; }
+        tr:nth-child(even) { background-color: #fafafa; }
+
+        /* --- COMPONENT: LETTER FORMAT --- */
+        .letter-head { margin-bottom: 40px; font-family: 'Times New Roman', serif; }
+        .letter-meta { margin-bottom: 20px; font-size: 11pt; }
+        .letter-body { text-align: justify; }
+        .signature-block { margin-top: 40px; }
+
+        /* --- PRINT --- */
+        @media print {
+            .sidebar { display: none; }
+            .container { margin-left: 0; width: 100%; padding: 0; }
+            .dossier-section { box-shadow: none; margin-bottom: 0; padding: 0; page-break-after: always; }
+            body { background-color: white; }
+        }
+    </style>
+</head>
+<body>
+<a href="index.html" style="position:fixed; top:20px; right:20px; z-index:9999; background:#C5A059; color:white; padding:10px 20px; text-decoration:none; border-radius:4px; font-weight:bold; font-family:sans-serif;">← Return to Hub</a>
+<nav class="sidebar">
+    <div class="brand-block">
+        <div class="brand-title">TOKEN LEBNANI</div>
+        <div class="brand-subtitle">V2 Master Dossier</div>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header">Submission Documents</div>
+        <a href="#cover" class="nav-link">Cover Letter</a>
+        <a href="#del-0" class="nav-link">D0: Compliance Matrix</a>
+        <a href="#del-1" class="nav-link">D1: Business Plan (RBP)</a>
+        <a href="#del-2" class="nav-link">D2: Legal Memo</a>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header">Governance & Ops</div>
+        <a href="#del-3" class="nav-link">D3: Fit & Proper</a>
+        <a href="#del-4" class="nav-link">D4: Governance</a>
+        <a href="#del-5" class="nav-link">D5: Technical Brief</a>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header">Resolution & Clients</div>
+        <a href="#del-6" class="nav-link">D6: Wind-Down Plan</a>
+        <a href="#del-7" class="nav-link">D7: Client Suitability</a>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header">Annexes</div>
+        <a href="#annexes" class="nav-link">Checklists & Closing</a>
+    </div>
+</nav>
+
+<div class="container">
+    
+    <div style="margin-bottom: 40px;">
+        <h1 style="border:none; margin-bottom:0;">FINAL MASTER PRE-APPLICATION DOSSIER</h1>
+        <p style="color: #666; margin-top: 5px;"><strong>Date:</strong> 13 January 2026 &nbsp;|&nbsp; <strong>Ref:</strong> COMPLETE SUBMISSION PACKAGE</p>
+    </div>
+
+    <div id="cover" class="dossier-section">
+        <div class="exec-point">
+            "Good morning. Thank you for this opportunity. What we're presenting today isn't just an application—it's a new model for cross-border investment. We've built Token Lebnani from the ground up within the ADGM framework to transform high-risk, illiquid Lebanese real estate into a transparent, regulated digital asset class. This cover letter formally submits our complete case for your review." [cite: 5]
+        </div>
+
+        <h2>Formal Cover Letter & Transmittal</h2>
+        
+        <div class="letter-head">
+            <p><strong>TOKEN LEBNANI V2 LTD (IN FORMATION)</strong><br>
+            [Proposed Address, Al Maryah Island, ADGM, UAE]</p>
+            <p>13 January 2026</p>
+            <p><strong>The Manager</strong><br>
+            Authorisation Division<br>
+            Financial Services Regulatory Authority (FSRA)<br>
+            Abu Dhabi Global Market<br>
+            Al Maryah Island, Abu Dhabi, UAE</p>
+        </div>
+
+        <div class="letter-body">
+            <p><strong>Subject: Formal Pre-Application Dossier – Category 4 Financial Services Permission (Arranging Deals in Investments)</strong> [cite: 10]</p>
+            
+            <p>Dear Sir/Madam,</p>
+            
+            <p>Token Lebnani V2 Ltd ("TLB") hereby submits this comprehensive Pre-Application Dossier in respect of its proposed application for a Financial Services Permission to carry on the regulated activity of "Arranging Deals in Investments" (Category 4) as a Private Financing Platform (PFP) within the Abu Dhabi Global Market (ADGM). [cite: 12]</p>
+            
+            <p>This submission is the product of extensive preparatory work and reflects our deep commitment to meeting and exceeding the FSRA's standards for regulatory compliance, operational robustness, and investor protection. [cite: 13]</p>
+            
+            <p>Our proposed platform seeks to leverage ADGM's world-class regulatory framework to facilitate institutional-grade investment into tokenized Lebanese real estate assets, employing a strictly non-custodial model and sophisticated cross-border legal structures. [cite: 14]</p>
+            
+            <p>Enclosed please find our Master Dossier, comprising eight core deliverables that demonstrate our full preparedness: [cite: 15]</p>
+            <ul>
+                <li>Deliverable 0: Regulatory Compliance Mapping Matrix [cite: 16]</li>
+                <li>Deliverable 1: Regulatory Business Plan (RBP) [cite: 17]</li>
+                <li>Deliverable 2: Draft Jurisdictional Enforceability Memo [cite: 18]</li>
+                <li>Deliverable 3: Fit & Proper Specifications [cite: 19]</li>
+                <li>Deliverable 4: Governance Hierarchy & Control Framework [cite: 20]</li>
+                <li>Deliverable 5: Proof of Concept (POC) Technical Brief [cite: 21]</li>
+                <li>Deliverable 6: Resolution & Cessation (Wind-Down) Plan [cite: 22]</li>
+                <li>Deliverable 7: Client Suitability & "High-Bar" Onboarding Framework [cite: 23]</li>
+            </ul>
+            
+            <p>Attached as Annexes are our FSRA Application Readiness Checklist and Pre-Meeting Readiness Checklist. [cite: 24]</p>
+            
+            <p>We believe this dossier demonstrates a mature, well-considered, and fully-formed proposal that proactively addresses the unique challenges of cross-border real estate tokenization. We respectfully request a preliminary meeting with the relevant FSRA team to discuss our submission, address any initial queries, and seek your guidance on proceeding to the formal application stage. [cite: 25, 26]</p>
+            
+            <p>We are confident that TLB can become a model participant in the ADGM's innovative fintech ecosystem and look forward to the opportunity to collaborate with your office. [cite: 27]</p>
+            
+            <div class="signature-block">
+                <p>Yours faithfully,</p>
+                <p>For and on behalf of Token Lebnani V2 Ltd (in formation),<br>
+                [Signature Block for Director/Authorised Representative]</p>
+                <p><strong>Nidal Gharzeddine</strong><br>Project Founder [cite: 31]</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="del-0" class="dossier-section">
+        <div class="exec-point">
+            "Before we dive into details, we want to show you how we think. This matrix is our executive summary to you—it maps every component of our business directly to your rulebook. It demonstrates that we haven't just read the regulations; we've engineered our entire operation as a direct response to them." [cite: 33]
+        </div>
+
+        <h2>Deliverable 0: Regulatory Compliance Mapping Matrix</h2>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">FSRA Rulebook / Principle</th>
+                        <th width="25%">Core Regulatory Requirement</th>
+                        <th width="40%">TLB's Compliant Mechanism & Strategic Response</th>
+                        <th width="15%">Primary Evidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GEN Section 2.3</strong><br>(Fit & Proper Test)</td>
+                        <td>Persons in controlled functions must be competent, capable, and of good repute.</td>
+                        <td>
+                            1. SEO/CEO Role Spec: Defined 10+ years ADGM experience; explicit accountability for preventing investment advice.<br>
+                            2. MLRO Outsourcing: To Waystone (Tier-1 firm) for instant high-risk jurisdiction expertise.<br>
+                            3. FO Spec: Mandates qualified accountant with EPRS experience.
+                        </td>
+                        <td>Deliverable 3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GEN Principle 6</strong><br>(Financial Soundness)</td>
+                        <td>Firm must maintain adequate financial resources.</td>
+                        <td>
+                            1. Initial Capital: $2,000,000 paid-in capital (exceeding $50,000 BCR).<br>
+                            2. Wind-Down Buffer: Dedicated reserve covering 6 months of costs.<br>
+                            3. PII: Commitment to secure $1M+ Professional Indemnity Insurance.
+                        </td>
+                        <td>Deliverable 1, 6</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COBS 2.4 & 18.2</strong><br>(Client Suitability)</td>
+                        <td>Clients must be appropriate; services suitable.</td>
+                        <td>"Knowledge-Qualified" Gateway: 90% pass on dynamic 25Q Mastery Assessment with biometric check, instant-fail Red-Flag questions, and anti-churning register.</td>
+                        <td>Deliverable 7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COBS 18.5.1(b)</strong><br>(PFP Activity Limitation)</td>
+                        <td>PFP operator must not provide credit or investment advice.</td>
+                        <td>Platform Design Mandate & Fee Structure: Terms and process strictly limit activity to "Arranging." Fees structured as "Structuring & Placement Premium," not underwriting.</td>
+                        <td>Deliverable 1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COBS 18.4 & MKT 4.3</strong><br>(Due Diligence)</td>
+                        <td>PFP must undertake appropriate due diligence.</td>
+                        <td>Triple-Lock Asset Vetting: 1) Lebanese legal/title check, 2) Independent RICS Valuation, 3) SPV structuring for ADGM enforceability with cash-flow sovereignty.</td>
+                        <td>Deliverable 2, 4</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FRT Framework 2026</strong><br>(Chapter 19A)</td>
+                        <td>Strict rules on handling Fiat-Referenced Tokens.</td>
+                        <td>Technology Router, Not Holder: Smart contract routes "Accepted FRTs" from SPV reserve directly to investor wallet. TLB never possesses or controls FRTs.</td>
+                        <td>Deliverable 1, 5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Overarching Principle</strong><br>Orderly Failure</td>
+                        <td>Confidence in firm's ability to cease without harm.</td>
+                        <td>Standby Servicer Model: Pre-contracted ADGM CSP assumes SPV admin; Third-party FM firm maintains physical asset management.</td>
+                        <td>Deliverable 6</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Technology Governance</strong></td>
+                        <td>Systems and controls for digital assets.</td>
+                        <td>Annual Third-Party Smart Contract Audit commitment for core tokenization contracts.</td>
+                        <td>Deliverable 5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        [cite: 35]
+    </div>
+
+    <div id="del-1" class="dossier-section">
+        <div class="exec-point">
+            "This is where we demonstrate commercial viability within strict regulatory boundaries. We show a sustainable fee model that aligns with our 'arranger' status, conservative capitalization that prioritizes stability over growth, and most importantly—our proactive embrace of your 2026 FRT rules." [cite: 37]
+        </div>
+
+        <h2>Deliverable 1: Regulatory Business Plan (RBP)</h2>
+        
+        <h3>1.1 Mission & Regulatory Positioning</h3>
+        <p>Token Lebnani V2 (TLB) is an ADGM-based Private Financing Platform (PFP) seeking a Category 4 Financial Services Permission for "Arranging Deals in Investments." [cite: 39] Our mission is to provide global investors with regulated, transparent access to high-yield Lebanese real estate via blockchain-based digital securities, operating under a strictly non-custodial model. [cite: 40]</p>
+
+        <h3>1.2 Target Market & Client Eligibility</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Client Category</th>
+                    <th>Qualification Criteria</th>
+                    <th>Platform Access & Restrictions</th>
+                </tr>
+                <tr>
+                    <td>Deemed Professional Client</td>
+                    <td>Entities with >$20M in assets.</td>
+                    <td>Full access to all offers.</td>
+                </tr>
+                <tr>
+                    <td>Assessed Professional Client</td>
+                    <td>Net assets >$1M or pass TLB Mastery Assessment + asset verification.</td>
+                    <td>Full access upon verification.</td>
+                </tr>
+                <tr>
+                    <td>Retail (Knowledge-Assessed)</td>
+                    <td>Pass TLB Mastery Assessment (90% score, zero Red-Flag errors).</td>
+                    <td>Access limited to offers with ≤200 retail persons. Min. investment: $20,000.</td>
+                </tr>
+            </table>
+        </div>
+        [cite: 42]
+
+        <h3>1.3 Monetization & Financial Soundness (REVISED)</h3>
+        <ul>
+            <li><strong>Revenue Streams:</strong> 2.5% (buyer) + 2.5% (seller) arrangement fees; 2% property onboarding fee; 3-10% Structuring & Placement Success Premium. [cite: 44]</li>
+            <li><strong>Capital Adequacy:</strong> $2,000,000 in initial paid-in capital, significantly exceeding the Category 4 Base Capital Requirement of $50,000 and sized to meet an expenditure-based requirement. [cite: 45]</li>
+            <li><strong>Insurance:</strong> The firm will secure Professional Indemnity Insurance (PII) with a minimum limit of $1,000,000 per claim, covering errors in cross-border due diligence. [cite: 46]</li>
+            <li><em>[DATA_GAP: Integrated 3-year financial model with P&L, balance sheet, and cash flow projections.]</em> [cite: 47]</li>
+        </ul>
+
+        <h3>1.4 2026 FRT Framework Compliance (REVISED)</h3>
+        <p>Dividend distributions will utilize "Accepted FRTs." [cite: 48]</p>
+        <p><strong>Critical Clarification:</strong> TLB is not an FRT Issuer or Payment Service Provider. [cite: 49] Our smart contract acts as a technology router, facilitating the direct transfer of FRTs from the Project SPV's segregated reserve account to the investor's verified wallet. [cite: 50] TLB never takes possession or control of the FRTs. [cite: 51]</p>
+
+        <h3>1.5 Additional Operational Commitments</h3>
+        <ul>
+            <li><strong>Asset Valuation:</strong> All property valuations will be conducted by an independent, RICS-qualified valuer. [cite: 53]</li>
+            <li><strong>Technology Audit:</strong> Commitment to an annual third-party security audit of the production tokenization smart contracts. [cite: 54]</li>
+        </ul>
+    </div>
+
+    <div id="del-2" class="dossier-section">
+        <div class="exec-point">
+            "This addresses the elephant in the room: Lebanon. We don't shy away from the risk; we engineer around it. This memo details our 'legal bridge'—using the New York Convention not as a theoretical concept, but as the core structural beam of our platform." [cite: 56]
+        </div>
+
+        <h2>Deliverable 2: Draft Jurisdictional Enforceability Memo</h2>
+
+        <h3>2.1 The "Look-Through" Legal Bridge</h3>
+        <p>A three-tier structure enforces rights: [cite: 58]</p>
+        <ol>
+            <li><strong>TLB Ltd (ADGM):</strong> Licensed PFP Operator. [cite: 59]</li>
+            <li><strong>Project SPV (ADGM):</strong> Bankruptcy-remote token issuer. [cite: 60]</li>
+            <li><strong>Lebanese SARL:</strong> Holds physical title; 100% owned by the SPV. [cite: 61]</li>
+        </ol>
+
+        <h3>2.2 Enforcement via the New York Convention</h3>
+        <p>All key agreements contain binding ADGM-seated arbitration clauses. [cite: 62] Lebanon's accession to the 1958 New York Convention obligates its courts to enforce resulting arbitral awards, providing a direct legal path to asset seizure. [cite: 63]</p>
+
+        <h3>2.3 Pragmatic Risk Mitigation & Cash-Flow Sovereignty (REVISED)</h3>
+        <ul>
+            <li><strong>Perfected Security & Local Counsel:</strong> Share pledge registered in Lebanon; retention of top-tier Lebanese counsel. [cite: 65]</li>
+            <li><strong>Cash-Flow Sovereignty:</strong> Lease structures will prioritize direct USD/AED rental payments to the ADGM Project SPV's account, minimizing exposure to the Lebanese banking system. [cite: 66]</li>
+            <li><strong>Asset Selection:</strong> Focus on properties compliant with foreign ownership rules (e.g., <3,000 sqm). [cite: 67]</li>
+        </ul>
+    </div>
+
+    <div id="del-3" class="dossier-section">
+        <div class="exec-point">
+            "People are the first line of defense. Here we show we're serious about governance. Instead of just listing names, we define the roles with mandatory, non-negotiable criteria. The most strategic decision is outsourcing the MLRO to Waystone..." [cite: 69]
+        </div>
+
+        <h2>Deliverable 3: Fit & Proper Specifications</h2>
+
+        <h3>Controlled Functions Specifications</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th width="20%">Position</th>
+                    <th width="15%">Status</th>
+                    <th width="50%">Mandatory Competency Requirements</th>
+                    <th width="15%">Regulatory Ref</th>
+                </tr>
+                <tr>
+                    <td><strong>Senior Executive Officer (SEO)</strong></td>
+                    <td>To be recruited (UAE resident mandatory)</td>
+                    <td>
+                        <strong>Experience:</strong> 10+ years senior leadership in FSRA/DIFC-regulated finance.<br>
+                        <strong>Regulatory Liaison:</strong> Direct FSRA/DFSA engagement; successful ADGM license application.<br>
+                        <strong>Risk Management:</strong> ICAAP mastery.<br>
+                        <strong>Levantine Fluency:</strong> Demonstrated understanding of Lebanese geopolitical risks.<br>
+                        <strong>Key Accountability:</strong> Personally accountable for enforcing platform boundaries (no advice).
+                    </td>
+                    <td>GEN 5.3.1</td>
+                </tr>
+                <tr>
+                    <td><strong>Money Laundering Reporting Officer (MLRO)</strong></td>
+                    <td>Outsourced to Waystone (Tier-1)</td>
+                    <td>
+                        <strong>Provider:</strong> FSRA-authorized for MLRO services.<br>
+                        <strong>Digital Asset Expertise:</strong> Wallet clustering, coin-taint analysis, on-chain monitoring.<br>
+                        <strong>Independence:</strong> Direct Board reporting line.<br>
+                        <strong>MENA Expertise:</strong> Source of wealth analysis for Lebanese connections.
+                    </td>
+                    <td>COBS 13, AMLRP 1</td>
+                </tr>
+                <tr>
+                    <td><strong>Finance Officer (FO)</strong></td>
+                    <td>Part-time/ Outsourced</td>
+                    <td>
+                        <strong>Qualification:</strong> ACA/ACCA/CPA; 5+ years post-qualification.<br>
+                        <strong>EPRS Mastery:</strong> ADGM Electronic Prudential Reporting System (PIB-CAP, PIB-LE).<br>
+                        <strong>Client Money:</strong> Daily reconciliation and segregation.
+                    </td>
+                    <td>PIB 2, PIB 4</td>
+                </tr>
+            </table>
+        </div>
+        [cite: 72]
+
+        <h3>Recruitment Protocol (All Controlled Functions)</h3>
+        <ol>
+            <li><strong>Pre-Screening:</strong> All candidates subjected to sanctions list screening (UN, OFAC, EU) and World-Check enhanced due diligence prior to first interview. [cite: 74]</li>
+            <li><strong>Regulatory Mock Interview:</strong> Finalist candidates subjected to rigorous mock regulator interview conducted by Legal Counsel or Waystone; tests ADGM Rulebook knowledge and compliance obligation understanding. [cite: 75, 76]</li>
+            <li><strong>Informal FSRA Pre-Clearance:</strong> Candidate profile summary (CV, regulatory history, role description) submitted to FSRA Authorisation Division for preliminary review before formal application. [cite: 77]</li>
+            <li><strong>Final Appointment:</strong> Conditional on successful FSRA Controlled Function approval; SEO recruitment commences upon in-principle approval with 90-day target. [cite: 78]</li>
+        </ol>
+    </div>
+
+    <div id="del-4" class="dossier-section">
+        <div class="exec-point">
+            "Governance isn't a chart; it's the operating system of a responsible firm. This diagram shows our three-tier structure that isolates risk, and the 'triple-lock' that makes it enforceable." [cite: 80]
+        </div>
+
+        <h2>Deliverable 4: Governance Hierarchy & Control Framework</h2>
+        <p><strong>The "Triple-Lock" Binding:</strong> The ADGM SPV's control is secured by: [cite: 82]</p>
+        <ol>
+            <li>Registered Share Pledge (Lebanon)</li>
+            <li>Management Services Agreement</li>
+            <li>ADGM-seated Arbitration Clause</li>
+        </ol>
+        <p>This process mandates an Independent RICS Valuation. [cite: 83]</p>
+    </div>
+
+    <div id="del-5" class="dossier-section">
+        <div class="exec-point">
+            "Technology enables our model but also defines our regulatory perimeter. We use the ERC-1400 standard because it has compliance baked into its code... And we make clear: we are a router for FRTs, not a holder." [cite: 85]
+        </div>
+
+        <h2>Deliverable 5: Proof of Concept (POC) Technical Brief</h2>
+        
+        <h3>5.1 Core Infrastructure: ERC-1400 Standard</h3>
+        <ul>
+            <li><strong>Platform:</strong> White-label DigiShares. [cite: 88]</li>
+            <li><strong>Compliance via Code:</strong> ERC-1594 enforces KYC whitelisting; ERC-1644 enables court-mandated token recovery only. [cite: 89]</li>
+        </ul>
+
+        <h3>5.2 Non-Custodial Model</h3>
+        <p>Investors connect via WalletConnect; TLB never accesses private keys. [cite: 90]</p>
+
+        <h3>5.3 AML/CFT & Integrity Controls (REVISED)</h3>
+        <ul>
+            <li>EDD for Lebanon-linked parties. [cite: 92]</li>
+            <li>Assessment Integrity: Biometric check at initiation; dynamic question/answer shuffling. [cite: 93]</li>
+        </ul>
+
+        <h3>5.4 FRT Routing Clarification (NEW)</h3>
+        <p>Dividend distribution is a permissioned, automated routing instruction from SPV reserve to investor wallet. [cite: 94] TLB is not a counterparty. [cite: 95]</p>
+
+        <h3>5.5 Audit Commitment (NEW)</h3>
+        <p>Commitment to annual third-party smart contract audit. [cite: 96]</p>
+    </div>
+
+    <div id="del-6" class="dossier-section">
+        <div class="exec-point">
+            "This is the ultimate test of our structure: does it protect investors if we fail? The answer is 'yes,' because we've planned for our own obsolescence. The 'Standby Servicer' isn't an idea—it's a pre-contracted switch that flips automatically." [cite: 98]
+        </div>
+
+        <h2>Deliverable 6: Resolution & Cessation (Wind-Down) Plan</h2>
+
+        <h3>6.1 The "Standby Servicer" Model (CLARIFIED)</h3>
+        <p>Upon cessation, a pre-contracted ADGM-licensed CSP assumes administrative duties of the Project SPVs. [cite: 100] The physical asset management remains with the incumbent third-party Facilities Management (FM) company under a long-term, survival-based contract. [cite: 101]</p>
+
+        <h3>6.2 Orderly 6-Month Wind-Down</h3>
+        <p>TLB will maintain a "Wind-Down Buffer" to fund a solvent cessation over six months, ensuring orderly handover, asset audit, final distribution, and dissolution. [cite: 102]</p>
+    </div>
+
+    <div id="del-7" class="dossier-section">
+        <div class="exec-point">
+            "Our most important control is at the front door... This isn't a quiz; it's a 'Mastery Assessment' with biometric verification and instant fails for dangerous misunderstandings. We're not filtering for wealth; we're filtering for wisdom." [cite: 104]
+        </div>
+
+        <h2>Deliverable 7: Client Suitability & "High-Bar" Onboarding Framework</h2>
+
+        <h3>7.1 Philosophy: Friction as a Feature</h3>
+        <p>The Mastery Assessment is an exclusionary filter for "Knowledge-Qualified" status. [cite: 106]</p>
+
+        <h3>7.2 The Mastery Assessment System (ENHANCED)</h3>
+        <ul>
+            <li><strong>Question Bank:</strong> 175-200 questions across 5 risk pillars. [cite: 108]</li>
+            <li><strong>Exam Logic:</strong> Dynamic generation of unique 25-question exams (min 4 questions per pillar, 3-5 Red-Flag questions). [cite: 109]</li>
+            <li><strong>Integrity Protections:</strong> Biometric verification pre-assessment; anti-collusion measures. [cite: 110]</li>
+            <li><strong>Scoring:</strong> Pass requires 90% (e.g., 23/25) AND zero Red-Flag errors. [cite: 111]</li>
+            <li><strong>Consequences & Anti-Churning:</strong> Fail → 7-day lockout. Third Fail → Status: "Permanently Assessed as Unsuitable" for 12 months. [cite: 112] A central "Register of Failed Assessments" prevents duplicate attempts. [cite: 113]</li>
+        </ul>
+
+        <h3>7.3 "Red-Flag" Question Examples</h3>
+        <ul>
+            <li>"True or False: The FSRA guarantees my investment against loss in Lebanon." (False) [cite: 115]</li>
+            <li>"Can TLB recover my tokens if I lose my private keys?" (No) [cite: 116]</li>
+            <li>"Is there a guaranteed, instant secondary market to sell my tokens?" (No) [cite: 117]</li>
+        </ul>
+    </div>
+
+    <div id="annexes" class="dossier-section">
+        <h2>Part 2: Annexes & Meeting Preparation</h2>
+        
+        <h3>Annex A: FSRA Application Readiness Checklist</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Item</th><th>Requirement</th><th>Status</th><th>Notes</th></tr>
+                <tr><td>1</td><td>Draft FIN 001 Form pre-populated</td><td>READY</td><td>Completed draft held for submission.</td></tr>
+                <tr><td>2</td><td>Regulatory Business Plan (RBP)</td><td>COMPLETE</td><td>Deliverable 1.</td></tr>
+                <tr><td>3</td><td>Financial Projections (3-Year Model)</td><td>DRAFT</td><td>Final model to be appended.</td></tr>
+                <tr><td>4</td><td>Detailed Governance Structure</td><td>COMPLETE</td><td>Deliverable 4.</td></tr>
+                <tr><td>5</td><td>Fit & Proper Information</td><td>COMPLETE</td><td>Deliverable 3.</td></tr>
+                <tr><td>6</td><td>Proposed MLRO Arrangement</td><td>ARRANGED</td><td>Outsourced to Waystone.</td></tr>
+                <tr><td>7</td><td>Wind-Down Plan</td><td>COMPLETE</td><td>Deliverable 6.</td></tr>
+                <tr><td>8</td><td>Client Onboarding & Suitability Policy</td><td>COMPLETE</td><td>Deliverable 7.</td></tr>
+                <tr><td>9</td><td>Draft Platform Terms of Use</td><td>IN DRAFT</td><td>Legal drafting in final review.</td></tr>
+                <tr><td>10</td><td>Proof of Initial Capitalization</td><td>COMMITTED</td><td>Bank confirmation available.</td></tr>
+            </table>
+        </div>
+        [cite: 120]
+
+        <h3>Annex B: Pre-Meeting Readiness Checklist</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Item</th><th>Status</th><th>Owner</th><th>Notes</th></tr>
+                <tr><td>1. Dossier PDF</td><td>Ready</td><td>Compliance</td><td>8 Deliverables, bookmarked.</td></tr>
+                <tr><td>2. Waystone MLRO Draft Agreement</td><td>Ready</td><td>CEO</td><td>For discussion only.</td></tr>
+                <tr><td>3. High-Level Financial Summary</td><td>Ready</td><td>CFO</td><td>1-page slide.</td></tr>
+                <tr><td>4. Platform Demo (Screenshots)</td><td>Ready</td><td>CTO</td><td>Biometric check & Knowledge assessment interface.</td></tr>
+                <tr><td>5. Key Messaging Brief</td><td>Ready</td><td>CEO/SEO</td><td>Script for tough questions.</td></tr>
+            </table>
+        </div>
+        [cite: 122]
+    </div>
+
+    <div class="dossier-section" style="background: #002147; color: white;">
+        <div class="exec-point" style="background: rgba(255,255,255,0.1); color: #ddd; border-left-color: #C5A059;">
+            "To conclude: we've built a complete system. The legal bridge addresses Lebanon, the tech ensures compliance, the governance provides oversight, and the suitability gate protects clients." [cite: 124]
+        </div>
+
+        <h2 style="color: white; border-left-color: white; background: transparent;">Conclusion & Key Messaging</h2>
+        <p>This Master Dossier demonstrates that Token Lebnani V2 is architected as a responsible, resilient, and regulatorily-aligned institution. [cite: 126] We have proactively engineered solutions for the most complex risks associated with cross-border real estate tokenization. [cite: 127] We are prepared for a detailed discussion and formally request a preliminary meeting with the FSRA to review this submission. [cite: 128]</p>
+
+        <h3>Key Messaging for the FSRA Meeting (Verbal)</h3>
+        <ul>
+            <li><strong>On Lebanon Risk:</strong> "We acknowledge Lebanon's FATF grey-list status. Our model mitigates this by capturing USD cash flows at the ADGM SPV level and securing enforcement via the New York Convention—bringing a regulated structure to a high-risk market." [cite: 130]</li>
+            <li><strong>On Our FRT Role:</strong> "To be absolutely clear: TLB is not an FRT issuer or a payment service provider. Our smart contract facilitates the direct transfer of Accepted FRTs from the project's reserve to the investor's wallet. We never have possession or control." [cite: 131]</li>
+            <li><strong>On Client Suitability:</strong> "Our gate is intelligent. A biometric check links identity to results in a permanent register, preventing anyone from simply retrying under a new email after failing." [cite: 132]</li>
+            <li><strong>On Platform Failure:</strong> "Investors are protected by a 'Standby Servicer.' If TLB ceases, a pre-contracted ADGM CSP automatically assumes administrative control of the SPVs, ensuring continuity." [cite: 133, 134]</li>
+        </ul>
+
+        <hr style="border-color: rgba(255,255,255,0.2); margin: 30px 0;">
+        <p style="font-size: 9pt; opacity: 0.7;">
+            Prepared with the authority of a Senior FSRA Authorisation Consultant / Chief Compliance Officer.<br>
+            For and on behalf of Token Lebnani V2 Ltd (in formation), ADGM.<br>
+            This document set is FINAL, COMPLETE, and READY for submission. [cite: 135-137]
+        </p>
+    </div>
+
+</div>
+
+<script>
+    // Smooth scroll handling
+    document.querySelectorAll('.nav-link').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            document.querySelector(targetId).scrollIntoView({
+                behavior: 'smooth'
+            });
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
