@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Lebnani | Secure Access</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="sliding-background"></div>
+    <div class="overlay"></div>
+
+    <div class="login-container" id="loginBlock">
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="Token Lebnani Logo" class="logo">
+        </div>
+        <h1>Restricted Access</h1>
+        <p>Please enter your credentials to view the FSRA Submission Package.</p>
+        
+        <form id="loginForm">
+            <input type="password" id="passwordInput" placeholder="Enter Password" autocomplete="off">
+            <button type="submit">Unlock Dossier</button>
+        </form>
+        <div id="errorMsg" class="error-msg">Incorrect Password</div>
+    </div>
+
+    <div class="dashboard-container hidden" id="dashboardBlock">
+        <div class="logo-wrapper-small">
+            <img src="logo.png" alt="Token Lebnani Logo" class="logo-small">
+        </div>
+        <h2>Submission Documents</h2>
+        <div class="card-grid">
+            <a href="dossier.html" class="doc-card">
+                <div class="card-icon">📁</div>
+                <h3>Master Pre-Application Dossier</h3>
+                <p>Full submission package including RBP, Governance, and Technical Brief.</p>
+                <div class="status-tag ready">Final Version</div>
+            </a>
+
+            <a href="legal.html" class="doc-card">
+                <div class="card-icon">⚖️</div>
+                <h3>Legal Team Briefing</h3>
+                <p>Jurisdictional enforceability memos, structure diagrams, and legal matrix.</p>
+                <div class="status-tag ready">Final Version</div>
+            </a>
+        </div>
+        <button id="lockBtn" class="lock-btn">Lock Access</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
