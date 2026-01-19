@@ -1,67 +1,193 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
 :root {
-    --primary: #001A38; /* Deeper Navy */
+    /* Brand Colors */
+    --primary: #001A38;  /* Deep Navy */
     --secondary: #C5A059; /* Gold */
     --secondary-light: #E6D2A3;
+    
+    /* UI Colors */
     --text: #2c3e50;
     --text-light: #5f6c7b;
     --bg-light: #f4f7f6;
     --white: #ffffff;
     --border: #e1e4e8;
+    
+    /* Dimensions */
     --sidebar-width: 280px;
-    --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    
+    /* Typography */
+    --font-main: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: var(--font-main);
     color: var(--text);
-    line-height: 1.7;
-    margin: 0;
-    background-color: var(--bg-light);
+    line-height: 1.6;
+    background-color: var(--bg-light); /* Default for documents */
+    /* Note: We removed 'overflow: hidden' so documents can scroll */
+}
+
+/* =========================================
+   2. HUB & LOGIN STYLES (Restored & Fixed)
+   ========================================= */
+
+/* UTILITY: Critical for hiding one view while showing the other */
+.hidden { display: none !important; }
+
+/* ANIMATED BACKGROUND */
+.sliding-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-x;
+    z-index: -2;
+    animation: slideLeft 60s linear infinite; /* Restored Animation */
+}
+
+@keyframes slideLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 33, 71, 0.85); /* Navy overlay */
+    z-index: -1;
+}
+
+/* CENTERING WRAPPER (Replaces flex body for compatibility) */
+.login-container, .dashboard-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 450px;
+}
+
+.dashboard-container { max-width: 800px; }
+
+/* LOGO FIXES */
+.logo-wrapper { margin-bottom: 20px; }
+
+.logo { 
+    max-width: 180px; /* Reduced to ~1/2 size */
+    height: auto; 
+    display: block; 
+    margin: 0 auto; 
+}
+
+.logo-small { 
+    max-width: 60px; /* Tiny version for dashboard header */
+    margin-bottom: 10px; 
+}
+
+/* FORM ELEMENTS */
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
     font-size: 16px;
+    transition: border 0.3s;
 }
 
-h1, h2, h3, h4 { color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; line-height: 1.3; }
+input:focus { border-color: var(--secondary); outline: none; }
 
-h1 { 
-    font-size: 28px; 
-    border-bottom: 4px solid var(--secondary); 
-    padding-bottom: 15px; 
-    margin-top: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-h2 { 
-    font-size: 22px; 
-    background: var(--white);
-    border-left: 5px solid var(--secondary);
-    padding: 12px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+button:hover { background-color: #003366; }
+
+.error-msg {
+    color: #cc0000;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    display: none;
 }
 
-h3 { 
-    font-size: 18px; 
-    font-weight: 700; 
-    color: var(--primary); 
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
+/* DASHBOARD GRID */
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+    text-align: left;
 }
 
-h4 { font-size: 14px; text-transform: uppercase; color: #7f8c8d; letter-spacing: 1px; }
-
-p, li { margin-bottom: 15px; color: #34495e; }
-
-/* --- LAYOUT --- */
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    margin-left: var(--sidebar-width);
-    padding: 60px;
+.doc-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 25px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-/* --- SIDEBAR --- */
+.doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--secondary);
+}
+
+.card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+.doc-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 8px; }
+.doc-card p { font-size: 0.9rem; color: #666; }
+
+.status-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-top: 15px;
+    background: #e3f2fd; color: #1565c0;
+}
+
+.lock-btn {
+    margin-top: 30px;
+    background-color: #7f8c8d;
+    width: auto;
+    padding: 10px 30px;
+}
+
+/* =========================================
+   3. PROFESSIONAL DOCUMENT STYLES (Dossier/Legal)
+   ========================================= */
+
+/* Only applies when we are NOT in the centered login block */
+/* The Sidebar */
 .sidebar {
     position: fixed;
     left: 0; top: 0;
@@ -85,34 +211,37 @@ p, li { margin-bottom: 15px; color: #34495e; }
 
 .nav-group { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .nav-header { 
-    font-size: 11px; 
-    text-transform: uppercase; 
-    color: rgba(255,255,255,0.4); 
-    padding: 0 30px; 
-    margin-bottom: 10px; 
-    font-weight: 700; 
-    letter-spacing: 0.5px;
+    font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); 
+    padding: 0 30px; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.5px;
 }
 
 .nav-link {
-    display: block;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    padding: 8px 30px;
-    font-size: 14px;
-    transition: all 0.2s;
+    display: block; color: rgba(255,255,255,0.7); text-decoration: none;
+    padding: 8px 30px; font-size: 14px; transition: all 0.2s;
     border-left: 3px solid transparent;
 }
 
 .nav-link:hover { background: rgba(255,255,255,0.05); color: var(--white); }
 .nav-link.active { 
-    color: var(--secondary); 
-    background: rgba(197, 160, 89, 0.1); 
-    border-left-color: var(--secondary);
-    font-weight: 600;
+    color: var(--secondary); background: rgba(197, 160, 89, 0.1); 
+    border-left-color: var(--secondary); font-weight: 600;
 }
 
-/* --- CARDS & SECTIONS --- */
+/* Main Content Area */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-left: var(--sidebar-width); /* Push content right */
+    padding: 60px;
+}
+
+/* Typography for Docs */
+h1 { font-size: 28px; border-bottom: 4px solid var(--secondary); padding-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0; }
+h2 { font-size: 22px; background: var(--white); border-left: 5px solid var(--secondary); padding: 12px 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-top: 2rem; }
+h3 { font-size: 18px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 1.5rem; }
+p, li { margin-bottom: 15px; color: #34495e; }
+
+/* Sections */
 .dossier-section {
     background: var(--white);
     padding: 50px;
@@ -121,112 +250,64 @@ p, li { margin-bottom: 15px; color: #34495e; }
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-/* --- TABLES (PROFESSIONAL UPGRADE) --- */
-.table-wrapper { 
-    width: 100%; 
-    overflow-x: auto; 
-    margin: 30px 0; 
-    border-radius: 6px;
-    border: 1px solid var(--border);
+.meta-block {
+    background: #fff; padding: 20px; border: 1px solid #eee;
+    margin-bottom: 40px; font-family: monospace; font-size: 13px; color: #555;
 }
 
-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-    font-size: 14px; 
-    background: white;
+.legal-note {
+    background-color: #eef2f5; border-left: 4px solid #2c3e50;
+    padding: 20px; margin: 30px 0; font-size: 14px; color: #444;
 }
+.legal-note strong { display: block; margin-bottom: 10px; color: #2c3e50; text-transform: uppercase; font-size: 12px; }
 
-th { 
-    background-color: #f8f9fa; 
-    color: var(--primary); 
-    padding: 15px; 
-    text-align: left; 
-    border-bottom: 2px solid var(--secondary); 
-    font-weight: 700; 
-    white-space: nowrap;
-}
-
-td { 
-    padding: 15px; 
-    border-bottom: 1px solid var(--border); 
-    vertical-align: top; 
-    color: var(--text);
-}
-
+/* Professional Tables */
+.table-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; border: 1px solid var(--border); border-radius: 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; background: white; }
+th { background-color: #f8f9fa; color: var(--primary); padding: 15px; text-align: left; border-bottom: 2px solid var(--secondary); font-weight: 700; }
+td { padding: 15px; border-bottom: 1px solid var(--border); vertical-align: top; }
 tr:last-child td { border-bottom: none; }
 tr:nth-child(even) { background-color: #fcfcfc; }
-tr:hover { background-color: #f1f1f1; }
 
-/* --- DIAGRAMS (FLOWCHARTS) --- */
+/* Flowcharts */
 .flowchart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 40px 0;
-    padding: 20px;
-    background: #fdfdfd;
-    border: 1px dashed #ccc;
-    border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center;
+    margin: 40px 0; padding: 20px; background: #fdfdfd;
+    border: 1px dashed #ccc; border-radius: 8px;
 }
-
-.flow-row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-    margin: 10px 0;
-}
-
+.flow-row { display: flex; justify-content: center; gap: 40px; width: 100%; margin: 10px 0; }
 .flow-box {
-    background: var(--white);
-    border: 2px solid var(--primary);
-    border-radius: 6px;
-    padding: 15px 25px;
-    text-align: center;
-    min-width: 180px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    position: relative;
+    background: var(--white); border: 2px solid var(--primary); border-radius: 6px;
+    padding: 15px 25px; text-align: center; min-width: 180px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative;
 }
-
 .flow-box strong { display: block; color: var(--primary); margin-bottom: 5px; }
 .flow-box span { font-size: 12px; color: #777; }
-
-/* Arrows (CSS Tricks) */
 .arrow-down { font-size: 24px; color: var(--secondary); margin: 5px 0; }
 .arrow-right { font-size: 24px; color: var(--secondary); align-self: center; }
-
 .box-secondary { border-color: var(--secondary); background: #fffbf0; }
 .box-dark { background: var(--primary); color: white !important; border-color: var(--primary); }
 .box-dark strong { color: var(--secondary); }
 .box-dark span { color: #ccc; }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 1024px) {
-    .container { margin-left: 0; padding: 20px; }
-    .sidebar { display: none; } /* Add a toggle in JS if needed, or keeping simple for print */
-}
-
-@media print {
-    .sidebar { display: none; }
-    .container { margin: 0; padding: 0; max-width: 100%; }
-    .dossier-section { box-shadow: none; border: none; padding: 0; margin-bottom: 30px; page-break-after: always; }
-    body { background: white; }
-    h2 { border-left: none; padding-left: 0; background: none; border-bottom: 2px solid #000; }
-}
-
-/* Return Button */
+/* Return Button (Top Right) */
 .return-btn {
-    position: fixed; 
-    top: 20px; 
-    right: 20px; 
-    z-index: 9999; 
-    background: var(--secondary); 
-    color: white; 
-    padding: 10px 20px; 
-    text-decoration: none; 
-    border-radius: 4px; 
-    font-weight: bold; 
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    background: var(--secondary); color: white; padding: 10px 20px;
+    text-decoration: none; border-radius: 4px; font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .return-btn:hover { background: #b08d4b; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .container { margin-left: 0; padding: 20px; }
+    .sidebar { display: none; }
+    .card-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+    .sidebar, .return-btn, .sliding-background, .overlay { display: none; }
+    .container { margin: 0; padding: 0; }
+    .dossier-section { box-shadow: none; border: none; padding: 0; page-break-after: always; }
+}
