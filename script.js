@@ -53,11 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('the-canvas');
 
     if (canvas) {
-        
+        console.log("Initializing PDF Viewer...");
+
         // --- CONFIGURATION ---
-        const url = 'deck.pdf';  // <--- MAKE SURE YOUR FILE IS NAMED EXACTLY THIS
+        // Ensure this matches your file name EXACTLY (case sensitive)
+        const url = 'deck.pdf'; 
         
-        // Explicitly set the worker source to match the library version
+        // Explicitly set the worker to match the library version to prevent version mismatch errors
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
         let pdfDoc = null,
@@ -71,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingTask = pdfjsLib.getDocument(url);
         
         loadingTask.promise.then(function(pdfDoc_) {
+            console.log("PDF Loaded Successfully");
             pdfDoc = pdfDoc_;
             
             // Update page count safely
@@ -82,14 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(function(error) {
             console.error('Error loading PDF:', error);
             
-            // Show a visible error on the screen so you know what happened
+            // VISUAL ERROR MESSAGE ON SCREEN
+            // This replaces the black screen with helpful text
             const container = document.querySelector('.ppt-screen-large') || document.querySelector('.ppt-screen');
             if (container) {
+                container.style.backgroundColor = "#222";
+                container.style.flexDirection = "column";
                 container.innerHTML = `
-                    <div style="color:white; text-align:center;">
-                        <h2 style="color: #ff6b6b;">Presentation Not Found</h2>
-                        <p>Please ensure the file is named <strong>deck.pdf</strong> and uploaded to the main folder.</p>
-                        <p style="font-size:12px; color:#888;">Error: ${error.message}</p>
+                    <div style="color:white; text-align:center; padding: 20px;">
+                        <h2 style="color: #e74c3c; margin-bottom: 10px;">⚠️ Presentation Not Found</h2>
+                        <p style="font-size: 16px; margin-bottom: 5px;">The system cannot find the file <strong>"${url}"</strong>.</p>
+                        <p style="color: #888; font-size: 14px;">Make sure the PDF is in the same folder as your HTML files.</p>
+                        <div style="margin-top: 15px; padding: 10px; background: #333; border-radius: 4px; font-family: monospace; color: #ff6b6b; font-size: 12px;">
+                            Error: ${error.message}
+                        </div>
                     </div>
                 `;
             }
@@ -121,11 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Update page counters
-            document.getElementById('page_num').textContent = num;
+            const pageNumEl = document.getElementById('page_num');
+            if(pageNumEl) pageNumEl.textContent = num;
 
             // Update button states
-            document.getElementById('prev').disabled = num <= 1;
-            document.getElementById('next').disabled = num >= pdfDoc.numPages;
+            const prevBtn = document.getElementById('prev');
+            const nextBtn = document.getElementById('next');
+            if(prevBtn) prevBtn.disabled = num <= 1;
+            if(nextBtn) nextBtn.disabled = num >= pdfDoc.numPages;
         }
 
         function queueRenderPage(num) {
@@ -136,12 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Button Events (With Null Checks)
+        // Button Events (With Safety Checks)
         const prevBtn = document.getElementById('prev');
         const nextBtn = document.getElementById('next');
 
         if (prevBtn) {
             prevBtn.addEventListener('click', function() {
+                // STOP if pdfDoc is null (prevents the crash you saw)
                 if (!pdfDoc || pageNum <= 1) return;
                 pageNum--;
                 queueRenderPage(pageNum);
@@ -150,13 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (nextBtn) {
             nextBtn.addEventListener('click', function() {
+                // STOP if pdfDoc is null
                 if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
                 pageNum++;
                 queueRenderPage(pageNum);
             });
         }
 
-        // Keyboard Navigation
+        // Keyboard Navigation (With Safety Checks)
         document.addEventListener('keydown', function(e) {
             if (!pdfDoc) return; // Stop if PDF isn't loaded
             
