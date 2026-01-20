@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // ==========================================
     // 1. LOGIN & DASHBOARD LOGIC
     // ==========================================
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dashboardBlock = document.getElementById('dashboardBlock');
         const lockBtn = document.getElementById('lockBtn');
 
-        const CORRECT_PASS = "Token.";
+        const CORRECT_PASS = "Token";
 
         // Check Login
         loginForm.addEventListener('submit', (e) => {
@@ -53,62 +53,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('the-canvas');
 
     if (canvas) {
-        console.log("Initializing PDF Viewer...");
-
         // --- CONFIGURATION ---
-        // Ensure this matches your file name EXACTLY (case sensitive)
-        const url = 'deck.pdf'; 
+        const url = 'deck.pdf'; // Make sure your file matches this exactly
         
-        // Explicitly set the worker to match the library version to prevent version mismatch errors
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
         let pdfDoc = null,
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 3.0, // High Resolution for Theater Mode
+            scale = 3.0, 
             ctx = canvas.getContext('2d');
 
         // Load the PDF
-        const loadingTask = pdfjsLib.getDocument(url);
-        
-        loadingTask.promise.then(function(pdfDoc_) {
-            console.log("PDF Loaded Successfully");
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
             pdfDoc = pdfDoc_;
             
             // Update page count safely
             const countEl = document.getElementById('page_count');
             if (countEl) countEl.textContent = pdfDoc.numPages;
 
-            // Initial render
             renderPage(pageNum);
         }).catch(function(error) {
             console.error('Error loading PDF:', error);
             
-            // VISUAL ERROR MESSAGE ON SCREEN
-            // This replaces the black screen with helpful text
+            // VISUAL ERROR MESSAGE (Replaces the Black Screen)
             const container = document.querySelector('.ppt-screen-large') || document.querySelector('.ppt-screen');
             if (container) {
                 container.style.backgroundColor = "#222";
                 container.style.flexDirection = "column";
                 container.innerHTML = `
                     <div style="color:white; text-align:center; padding: 20px;">
-                        <h2 style="color: #e74c3c; margin-bottom: 10px;">⚠️ Presentation Not Found</h2>
-                        <p style="font-size: 16px; margin-bottom: 5px;">The system cannot find the file <strong>"${url}"</strong>.</p>
-                        <p style="color: #888; font-size: 14px;">Make sure the PDF is in the same folder as your HTML files.</p>
-                        <div style="margin-top: 15px; padding: 10px; background: #333; border-radius: 4px; font-family: monospace; color: #ff6b6b; font-size: 12px;">
-                            Error: ${error.message}
-                        </div>
+                        <h2 style="color: #e74c3c;">⚠️ File Not Found</h2>
+                        <p>The system cannot find <strong>"deck.pdf"</strong>.</p>
+                        <p style="color: #aaa; font-size: 14px;">Please upload the PDF to your repository and name it <em>deck.pdf</em>.</p>
                     </div>
                 `;
             }
         });
 
-        // Render the page
         function renderPage(num) {
             pageRendering = true;
-            
-            // Fetch page
             pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport({scale: scale});
                 canvas.height = viewport.height;
@@ -129,11 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Update page counters
+            // Update UI
             const pageNumEl = document.getElementById('page_num');
             if(pageNumEl) pageNumEl.textContent = num;
 
-            // Update button states
             const prevBtn = document.getElementById('prev');
             const nextBtn = document.getElementById('next');
             if(prevBtn) prevBtn.disabled = num <= 1;
@@ -148,13 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Button Events (With Safety Checks)
+        // Button Events
         const prevBtn = document.getElementById('prev');
         const nextBtn = document.getElementById('next');
 
         if (prevBtn) {
             prevBtn.addEventListener('click', function() {
-                // STOP if pdfDoc is null (prevents the crash you saw)
                 if (!pdfDoc || pageNum <= 1) return;
                 pageNum--;
                 queueRenderPage(pageNum);
@@ -163,28 +146,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (nextBtn) {
             nextBtn.addEventListener('click', function() {
-                // STOP if pdfDoc is null
                 if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
                 pageNum++;
                 queueRenderPage(pageNum);
             });
         }
-
-        // Keyboard Navigation (With Safety Checks)
+        
+        // Keyboard Nav
         document.addEventListener('keydown', function(e) {
-            if (!pdfDoc) return; // Stop if PDF isn't loaded
-            
-            if (e.key === "ArrowRight") {
-                if (pageNum < pdfDoc.numPages) {
-                    pageNum++;
-                    queueRenderPage(pageNum);
-                }
+            if (!pdfDoc) return;
+            if (e.key === "ArrowRight" && pageNum < pdfDoc.numPages) {
+                pageNum++;
+                queueRenderPage(pageNum);
             }
-            if (e.key === "ArrowLeft") {
-                if (pageNum > 1) {
-                    pageNum--;
-                    queueRenderPage(pageNum);
-                }
+            if (e.key === "ArrowLeft" && pageNum > 1) {
+                pageNum--;
+                queueRenderPage(pageNum);
             }
         });
     }
