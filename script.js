@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dashboardBlock = document.getElementById('dashboardBlock');
         const lockBtn = document.getElementById('lockBtn');
 
-        const CORRECT_PASS = "Token";
+        const CORRECT_PASS = "Token.";
 
         // Check Login
         loginForm.addEventListener('submit', (e) => {
