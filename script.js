@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvas) {
         
         // --- CONFIGURATION ---
-        const url = 'deck.pdf';  // <--- NAME OF YOUR UPLOADED PDF FILE
+        const url = 'ddeck.pdf';  // <--- NAME OF YOUR UPLOADED PDF FILE
         
         // We set the worker source explicitly for stability
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(function(error) {
             console.error('Error loading PDF:', error);
             // Optional: Alert user if file not found
-            // alert('Presentation file "deck.pdf" not found.');
+            // alert('Presentation file "ddeck.pdf" not found.');
         });
 
         // Render the page
