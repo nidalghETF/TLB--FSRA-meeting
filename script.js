@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const loginForm = document.getElementById('loginForm');
     
-    // Only run login logic if we are on the login page (index.html)
     if (loginForm) {
         const passwordInput = document.getElementById('passwordInput');
         const errorMsg = document.getElementById('errorMsg');
@@ -53,33 +52,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const canvas = document.getElementById('the-canvas');
 
-    // Only run PDF logic if the canvas exists (presentation.html)
     if (canvas) {
         
         // --- CONFIGURATION ---
-        const url = 'ddeck.pdf';  // <--- NAME OF YOUR UPLOADED PDF FILE
+        const url = 'deck.pdf';  // <--- MAKE SURE YOUR FILE IS NAMED EXACTLY THIS
         
-        // We set the worker source explicitly for stability
+        // Explicitly set the worker source to match the library version
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
         let pdfDoc = null,
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 2.0, // High res
+            scale = 3.0, // High Resolution for Theater Mode
             ctx = canvas.getContext('2d');
 
         // Load the PDF
-        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+        const loadingTask = pdfjsLib.getDocument(url);
+        
+        loadingTask.promise.then(function(pdfDoc_) {
             pdfDoc = pdfDoc_;
-            document.getElementById('page_count').textContent = pdfDoc.numPages;
+            
+            // Update page count safely
+            const countEl = document.getElementById('page_count');
+            if (countEl) countEl.textContent = pdfDoc.numPages;
 
             // Initial render
             renderPage(pageNum);
         }).catch(function(error) {
             console.error('Error loading PDF:', error);
-            // Optional: Alert user if file not found
-            // alert('Presentation file "ddeck.pdf" not found.');
+            
+            // Show a visible error on the screen so you know what happened
+            const container = document.querySelector('.ppt-screen-large') || document.querySelector('.ppt-screen');
+            if (container) {
+                container.innerHTML = `
+                    <div style="color:white; text-align:center;">
+                        <h2 style="color: #ff6b6b;">Presentation Not Found</h2>
+                        <p>Please ensure the file is named <strong>deck.pdf</strong> and uploaded to the main folder.</p>
+                        <p style="font-size:12px; color:#888;">Error: ${error.message}</p>
+                    </div>
+                `;
+            }
         });
 
         // Render the page
@@ -92,14 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
-                // Render PDF page into canvas context
                 var renderContext = {
                     canvasContext: ctx,
                     viewport: viewport
                 };
                 var renderTask = page.render(renderContext);
 
-                // Wait for render to finish
                 renderTask.promise.then(function() {
                     pageRendering = false;
                     if (pageNumPending !== null) {
@@ -117,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('next').disabled = num >= pdfDoc.numPages;
         }
 
-        // Queue rendering if another page is rendering
         function queueRenderPage(num) {
             if (pageRendering) {
                 pageNumPending = num;
@@ -126,21 +136,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Button Events
-        document.getElementById('prev').addEventListener('click', function() {
-            if (pageNum <= 1) return;
-            pageNum--;
-            queueRenderPage(pageNum);
-        });
+        // Button Events (With Null Checks)
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
 
-        document.getElementById('next').addEventListener('click', function() {
-            if (pageNum >= pdfDoc.numPages) return;
-            pageNum++;
-            queueRenderPage(pageNum);
-        });
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function() {
+                if (!pdfDoc || pageNum <= 1) return;
+                pageNum--;
+                queueRenderPage(pageNum);
+            });
+        }
 
-        // Optional: Keyboard Navigation
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function() {
+                if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+                pageNum++;
+                queueRenderPage(pageNum);
+            });
+        }
+
+        // Keyboard Navigation
         document.addEventListener('keydown', function(e) {
+            if (!pdfDoc) return; // Stop if PDF isn't loaded
+            
             if (e.key === "ArrowRight") {
                 if (pageNum < pdfDoc.numPages) {
                     pageNum++;
@@ -157,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Add Shake Animation Style dynamically (Global)
+// Add Shake Animation Style dynamically
 const style = document.createElement('style');
 style.innerHTML = `
     @keyframes shake {
