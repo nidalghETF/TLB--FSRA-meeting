@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Presentation | Token Lebnani</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+<body>
+
+<a href="index.html" class="return-btn">← Return to Hub</a>
+
+<nav class="sidebar">
+    <div class="brand-block">
+        <div class="brand-title">TOKEN LEBNANI</div>
+        <div class="brand-subtitle">Investor Deck</div>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header">Controls</div>
+        <div style="padding: 0 25px; color: #666; font-size: 13px;">
+            <p>Use the controls below the slide or your arrow keys to navigate.</p>
+        </div>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header">Presentation Info</div>
+        <a href="#" class="nav-link active">Main Deck</a>
+    </div>
+</nav>
+
+<div class="container">
+    
+    <div style="margin-bottom: 40px; text-align: center;">
+        <h1 style="border:none; margin-bottom:5px;">INVESTOR PRESENTATION</h1>
+        <p style="color: #666; margin-top: 0;"><strong>Reference:</strong> FSRA PRE-APPLICATION VISUALS</p>
+    </div>
+
+    <div class="ppt-viewer-container">
+        <div class="ppt-screen">
+            <canvas id="the-canvas"></canvas>
+        </div>
+        
+        <div class="ppt-controls">
+            <button id="prev" class="nav-btn">← Previous</button>
+            <span class="page-info">Slide <span id="page_num">--</span> of <span id="page_count">--</span></span>
+            <button id="next" class="nav-btn">Next →</button>
+        </div>
+    </div>
+
+    <div class="dossier-section" style="margin-top: 40px;">
+        <h3>Notes on this Deck</h3>
+        <p>This presentation summarizes the structural, legal, and operational framework detailed in the Master Dossier and Legal Briefing documents. Please refer to those documents for specific regulatory citations.</p>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
