@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Specific styles for Legal Briefing internal notes */
+        /* Specific styles for Legal Briefing internal notes - kept from original */
         .legal-note {
             background-color: #eef2f5;
             border-left: 4px solid #2c3e50;
@@ -75,7 +75,7 @@
     <div id="metadata" class="meta-block">
         <p><strong>TO:</strong> Legal Team</p>
         <p><strong>FROM:</strong> Token Lebnani - FSRA Application Team</p>
-        <p><strong>DATE:</strong> 13 January 2026</p>
+        <p><strong>DATE:</strong> [Current Date]</p>
         <p><strong>SUBJECT:</strong> FSRA Pre-Application Meeting - Required Legal Documentation</p>
         <p><strong>DOCUMENT STATUS:</strong> Draft - For FSRA Pre-Application Meeting Only</p>
         <p><strong>CONFIDENTIALITY:</strong> Commercial in Confidence</p>
@@ -94,9 +94,17 @@
 
     <div id="exec-summary" class="dossier-section">
         <h2>EXECUTIVE SUMMARY</h2>
-        <p>Token Lebnani V2 Ltd ("TLB") proposes a three-tier legal structure to facilitate regulated investment in Lebanese real estate through an ADGM-licensed Private Financing Platform.</p>
-        <p>This memo outlines the legal framework for cross-border enforcement, asset protection, and regulatory compliance between ADGM and Lebanese jurisdictions.</p>
-        <p><strong>Primary Legal Mechanisms:</strong></p>
+        <p>Token Lebnani Ltd ("TLB") proposes a three-tier legal structure to facilitate regulated investment in Lebanese real estate through an ADGM-licensed Private Financing Platform. This memo outlines the legal framework for cross-border enforcement, asset protection, and regulatory compliance between ADGM and Lebanese jurisdictions.</p>
+        
+        <h3 style="margin-top:20px;">Capital Framework (FSRA Final Ruling):</h3>
+        <ul>
+            <li><strong>Base Capital:</strong> USD 10,000 (Category 4 minimum under PRU 3.4.1(1)(a), conditional on evidence)</li>
+            <li><strong>Enforcement Litigation Reserve:</strong> USD 300,000 Day 1, phased to USD 575,000 (36 months)</li>
+            <li><strong>Wind-Down Reserve:</strong> USD 100,000 (Standby Servicer-managed)</li>
+            <li><strong>Total Day 1 Financial Requirement:</strong> USD 410,000</li>
+        </ul>
+
+        <h3>Primary Legal Mechanisms:</h3>
         <ul>
             <li>ADGM SPV ownership of Lebanese SARL for asset segregation</li>
             <li>Treaty-based enforcement via the 1958 New York Convention</li>
@@ -134,11 +142,6 @@
             <li><strong>Registration:</strong> Lebanese Commercial Register (Ministry of Economy)</li>
             <li><strong>Compliance:</strong> Decree No. 11614/1969 (foreign ownership restrictions)</li>
         </ul>
-
-        <div class="legal-note">
-            <strong>For your consideration: Non-Consolidation Opinion Requirement</strong>
-            <p>The Project SPV structure relies on bankruptcy remoteness, which requires a formal Non-Consolidation Legal Opinion at the operational stage. This opinion is critical for investors and regulators. The legal team should be tasked with identifying appropriate counsel to provide this opinion and confirming whether it can be obtained pre-launch or must be obtained before first SPV formation.</p>
-        </div>
 
         <h3>ENFORCEMENT MECHANISM</h3>
         
@@ -178,7 +181,7 @@
 
         <h3>LEBANON-SPECIFIC RISK MITIGATION</h3>
         
-        <h4>1. ASSET PROTECTION:</h4>
+        <h4>ASSET PROTECTION:</h4>
         <ul>
             <li><strong>Security Registration:</strong>
                 <ul>
@@ -187,11 +190,11 @@
                     <li>Property insurance with international carriers</li>
                 </ul>
             </li>
-        </ul>
-
-        <h4>2. LOCAL COUNSEL RETENTION:</h4>
-        <ul>
-            <li>Pre-vetted Lebanese law firms with real estate and commercial litigation expertise</li>
+            <li><strong>Local Counsel Retention:</strong>
+                <ul>
+                    <li>Pre-vetted Lebanese law firms with real estate and commercial litigation expertise</li>
+                </ul>
+            </li>
         </ul>
 
         <h4>CASH-FLOW REPATRIATION STRATEGY:</h4>
@@ -236,6 +239,28 @@
             <li><strong>Tax Registration:</strong> Ministry of Finance requirements</li>
             <li><strong>Real Estate Registration:</strong> Conservation Foncière procedures</li>
         </ul>
+
+        <div class="legal-note">
+            <strong>For your consideration: Non-Consolidation Opinion Requirement</strong>
+            <p>The Project SPV structure relies on bankruptcy remoteness, which requires a formal Non-Consolidation Legal Opinion at the operational stage. This opinion is critical for investors and regulators. The legal team should be tasked with identifying appropriate counsel to provide this opinion and confirming whether it can be obtained pre-launch or must be obtained before first SPV formation.</p>
+        </div>
+
+        <h4 style="margin-top:30px;">CAPITAL EVIDENCE REQUIREMENTS (FSRA CONDITIONS)</h4>
+        <p>The USD 10,000 Base Capital classification is conditional on providing the following evidence with the formal application:</p>
+        <ol>
+            <li><strong>System Architecture Audit Report:</strong> Third-party audit confirming that the payment initiation interface is technically incapable of receiving or instructing the receipt of client funds until the smart contract validates both the expiration of the 48-hour cooling-off period and the client's final "proceed" instruction.</li>
+            <li><strong>VASP Partner Agreement:</strong> Agreement explicitly confirming that the VASP Partner maintains segregated client money accounts; the VASP acts as sole recipient and custodian of client funds from payment instruction; TLB has no ability to divert or access client funds.</li>
+        </ol>
+        <p><em>Regulatory Consequence: Any operational deviation from the non-custodial payment flow will be treated as holding Client Money, retroactively triggering the USD 50,000 Base Capital requirement under PRU 3.4.1(1)(b).</em></p>
+
+        <h4>STANDBY SERVICER REQUIREMENT (FSRA MANDATORY)</h4>
+        <p>The FSRA categorically rejected self-administered wind-down. The executed Standby Servicer Agreement is a mandatory component of the formal application.</p>
+        <ul>
+            <li>ADGM-licensed Corporate Service Provider contracted as Standby Servicer</li>
+            <li>Responsibilities: SPV administration, asset liquidation coordination, cross-border coordination, dispute resolution, regulatory reporting</li>
+            <li>Activation: Automatic upon wind-down trigger event</li>
+            <li>Fee Structure: Activation fee, monthly retainer, contingency budget managed within USD 100,000 Wind-Down Reserve</li>
+        </ul>
     </div>
 
     <div id="del2" class="dossier-section">
@@ -260,39 +285,38 @@
                         <td>To be recruited (UAE resident mandatory)</td>
                         <td>
                             <strong>Experience:</strong> 10+ years senior leadership in FSRA/DIFC-regulated finance.<br><br>
-                            <strong>Regulatory Liaison:</strong> Direct FSRA/DFSA engagement on authorization/supervision; documented participation in successful ADGM license application.<br><br>
+                            <strong>Regulatory Liaison:</strong> Direct FSRA/DFSA engagement; documented participation in successful ADGM license application.<br><br>
                             <strong>Risk Management:</strong> ICAAP mastery; hands-on experience constructing, documenting, and defending ICAAP frameworks.<br><br>
-                            <strong>Levantine Fluency:</strong> Demonstrated understanding of Lebanese geopolitical risks; quarterly Board briefings on market developments.<br><br>
-                            <strong>Key Accountability:</strong> Personally accountable for enforcing platform boundaries—ensuring no investment advice or discretionary management (COBS 18.5.1(b)).<br><br>
-                            <strong>Recruitment Timeline:</strong> Commences upon in-principle approval; target appointment within 90 days.
+                            <strong>Levantine Fluency:</strong> Demonstrated understanding of Lebanese geopolitical risks.<br><br>
+                            <strong>Key Accountability:</strong> Personally accountable for enforcing platform boundaries—ensuring no investment advice (COBS 18.5.1(b)).
                         </td>
                         <td>GEN 5.3.1, GEN 5.4.1, PIB 3.3</td>
-                        <td>Master Dossier - Deliverable 3 (Fit & Proper Specifications)</td>
+                        <td>Master Dossier - Deliverable 3</td>
                     </tr>
                     <tr>
                         <td><strong>Money Laundering Reporting Officer (MLRO)</strong></td>
-                        <td>Outsourced to Waystone Governance Services (ADGM) Limited (Tier-1 Compliance Firm)</td>
+                        <td>Outsourced to Waystone Governance Services (ADGM) Limited</td>
                         <td>
-                            <strong>Provider Authorization:</strong> FSRA-authorized for MLRO services and Controlled Function placements.<br><br>
+                            <strong>Provider Authorization:</strong> FSRA-authorized for MLRO services.<br><br>
                             <strong>Digital Asset Expertise:</strong> Specific expertise in Digital Securities and Virtual Assets AML/CFT; proficiency in blockchain analytics.<br><br>
-                            <strong>Technological AML Capabilities:</strong> Wallet clustering analysis; coin-taint analysis; on-chain transaction monitoring; integration with blockchain analytics platforms.<br><br>
-                            <strong>Independence:</strong> Direct Board reporting line (bypasses CEO); structural independence from commercial operations; fixed compensation not linked to commercial metrics.<br><br>
+                            <strong>Technological AML Capabilities:</strong> Wallet clustering analysis; coin-taint analysis; on-chain transaction monitoring.<br><br>
+                            <strong>Independence:</strong> Direct Board reporting line (bypasses CEO); fixed compensation not linked to commercial metrics.<br><br>
                             <strong>Lebanese/MENA Expertise:</strong> Source of wealth/funds analysis for clients with Lebanese connections; familiarity with FATF grey-list implications.
                         </td>
                         <td>COBS 13, AMLRP 1, GEN 5.3.1</td>
-                        <td>Draft Waystone engagement letter; Master Dossier - Deliverable 3</td>
+                        <td>Draft Waystone SLA; Master Dossier</td>
                     </tr>
                     <tr>
                         <td><strong>Finance Officer (FO)</strong></td>
                         <td>Part-time/Outsourced (UAE resident mandatory)</td>
                         <td>
-                            <strong>Professional Qualification:</strong> ACA/ACCA/CPA; good standing with professional body; 5+ years post-qualification experience; minimum 2 years in UAE regulated financial services.<br><br>
-                            <strong>EPRS Mastery:</strong> Comprehensive mastery of ADGM Electronic Prudential Reporting System; quarterly capital adequacy returns (PIB-CAP); large exposures returns (PIB-LE); client asset returns (PIB-CASS).<br><br>
-                            <strong>Client Money Oversight:</strong> Daily reconciliation procedures; segregation from operational funds; Client Asset Policy enforcement.<br><br>
-                            <strong>Prudential Compliance:</strong> Capital adequacy calculation; expenditure-based requirements; ICAAP support; insurance program oversight (PII, D&O).
+                            <strong>Professional Qualification:</strong> ACA/ACCA/CPA; good standing with professional body; 5+ years post-qualification experience.<br><br>
+                            <strong>EPRS Mastery:</strong> Comprehensive mastery of ADGM Electronic Prudential Reporting System (PIB-CAP, PIB-LE, PIB-CASS).<br><br>
+                            <strong>Client Money Oversight:</strong> Daily reconciliation procedures; segregation from operational funds.<br><br>
+                            <strong>Prudential Compliance:</strong> Capital adequacy calculation; ELR monitoring against 4% AUA ratio; ICAAP support; insurance program oversight.
                         </td>
                         <td>PIB 2, PIB 4, GEN 5.3.1, COBS 11</td>
-                        <td>Master Dossier - Deliverable 3 (Fit & Proper Specifications)</td>
+                        <td>Master Dossier - Deliverable 3</td>
                     </tr>
                 </tbody>
             </table>
@@ -314,7 +338,7 @@
 
     <div id="del3" class="dossier-section">
         <h2>DELIVERABLE 3: LEGAL STRUCTURE DIAGRAM</h2>
-        <p>[Professional flowchart to be produced by Legal Team - structure as follows:]</p>
+        <p><em>[Professional flowchart to be produced by Legal Team - structure as follows:]</em></p>
 
         <div class="flowchart">
             <div class="flow-row">
