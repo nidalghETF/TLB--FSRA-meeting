@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (canvas) {
         // --- CONFIGURATION ---
-        const url = 'deck.pdf'; // Make sure your file matches this exactly
+        const url = 'https://nidalghetf.github.io/TLB--FSRA-meeting/deck.pdf'; // Make sure your file matches this exactly
         
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
