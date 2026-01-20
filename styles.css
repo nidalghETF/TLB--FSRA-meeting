@@ -1,5 +1,5 @@
 /* =========================================
-   1. GLOBAL VARIABLES & RESET.
+   1. GLOBAL VARIABLES & RESET
    ========================================= */
 :root {
     /* Brand Colors */
@@ -93,7 +93,7 @@ body {
 }
 
 .logo-small { 
-    max-width: 60px; /* Tiny version for dashboard header */
+    max-width: 61px; /* Tiny version for dashboard header */
     margin-bottom: 10px; 
 }
 
